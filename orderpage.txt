@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Place Order</title>
+
+<style>
+
+body{
+margin:0;
+font-family:sans-serif;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+/* order box */
+
+.order-box{
+background:white;
+padding:35px;
+width:320px;
+border-radius:15px;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+text-align:center;
+animation:fade 0.8s;
+}
+
+/* animation */
+
+@keyframes fade{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+h2{
+margin-bottom:20px;
+}
+
+/* input */
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+/* button */
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:8px;
+background:linear-gradient(135deg,purple,blue);
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+button:hover{
+opacity:0.9;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="order-box">
+
+<h2>Order Product</h2>
+
+<input type="text" placeholder="Your Name">
+
+<input type="text" placeholder="Phone Number">
+
+<input type="text" placeholder="Delivery Address">
+
+<a href="https://wa.me/916379677248">
+<button>Order on WhatsApp</button>
+</a>
+</div>
+
+</body>
+</html>
