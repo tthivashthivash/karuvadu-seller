@@ -6,81 +6,87 @@
 <style>
 
 *{
-box-sizing:border-box;
-font-family:sans-serif;
+  box-sizing:border-box;
+  font-family:sans-serif;
 }
 
 body{
-margin:0;
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:linear-gradient(270deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);
-background-size:600% 600%;
-animation:bgmove 8s infinite alternate;
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(270deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);
+  background-size:600% 600%;
+  animation:bgmove 8s infinite alternate;
 }
 
 /* background animation */
 
 @keyframes bgmove{
-0%{background-position:0% 50%;}
-100%{background-position:100% 50%;}
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
 }
 
 /* login box */
 
 .login-box{
-width:340px;
-padding:40px;
-border-radius:20px;
-background:rgba(255,255,255,0.2);
-backdrop-filter:blur(10px);
-box-shadow:0 15px 40px rgba(0,0,0,0.3);
-text-align:center;
-transform:scale(0.8);
-animation:popup 1s forwards;
+  width:340px;
+  padding:40px;
+  border-radius:20px;
+  background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(10px);
+  box-shadow:0 15px 40px rgba(0,0,0,0.3);
+  text-align:center;
+  transform:scale(0.8);
+  animation:popup 1s forwards;
 }
 
 @keyframes popup{
-to{
-transform:scale(1);
-}
+  to{
+    transform:scale(1);
+  }
 }
 
 h2{
-color:white;
-margin-bottom:20px;
+  color:white;
+  margin-bottom:20px;
 }
 
 /* input */
 
 input{
-width:100%;
-padding:12px;
-margin-top:15px;
-border:none;
-border-radius:8px;
-outline:none;
+  width:100%;
+  padding:12px;
+  margin-top:15px;
+  border:none;
+  border-radius:8px;
+  outline:none;
 }
 
 /* button */
 
 button{
-margin-top:20px;
-width:100%;
-padding:12px;
-border:none;
-border-radius:8px;
-background:linear-gradient(135deg,#667eea,#764ba2);
-color:white;
-font-size:16px;
-cursor:pointer;
-transition:0.3s;
+  margin-top:20px;
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
 }
 
 button:active{
-transform:scale(0.9);
+  transform:scale(0.9);
+}
+
+#loginMessage{
+  margin-top:15px;
+  font-weight:bold;
+  color:white;
 }
 
 </style>
@@ -90,25 +96,40 @@ transform:scale(0.9);
 
 <div class="login-box">
 
-<h2>Login</h2>
+  <h2>Login</h2>
 
-<input type="text" placeholder="Name">
+  <input type="text" id="username" placeholder="Username">
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
 
-<input type="email" placeholder="Email">
+  <button onclick="login()">Login</button>
 
-<input type="password" placeholder="Password">
-
-<button onclick="login()">Login</button>
+  <div id="loginMessage"></div>
 
 </div>
 
 <script>
-
 function login(){
-alert("Login Success!");
-}
+  const username = document.getElementById('username').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const msg = document.getElementById('loginMessage');
 
+  // ✅ Credentials for login
+  if(username === "thivash" && email === "thivash@example.com" && password === "1234"){
+    msg.textContent = "Login Successful! Redirecting...";
+    msg.style.color = "lightgreen";
+    setTimeout(()=>{
+      window.location.href = "home.html"; // Redirect to home page
+    }, 1000);
+  } else {
+    msg.textContent = "Invalid Username, Email, or Password!";
+    msg.style.color = "red";
+  }
+}
 </script>
 
 </body>
 </html>
+
+
