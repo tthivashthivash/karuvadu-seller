@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Stylish Shop</title>
+<style>
+*{
+  box-sizing: border-box;
+  font-family: sans-serif;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  background: linear-gradient(270deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);
+  background-size: 800% 800%;
+  animation: bgmove 12s infinite alternate;
+}
+
+@keyframes bgmove{
+  0%{background-position:0% 50%;}
+  100%{background-position:100% 50%;}
+}
+
+/* header */
+.header{
+  padding:20px;
+  text-align:center;
+  color:white;
+  font-size:28px;
+  letter-spacing:2px;
+  text-shadow:0 2px 5px rgba(0,0,0,0.3);
+}
+
+/* search box */
+.search-box{
+  width:50%;
+  margin:20px auto;
+  display:flex;
+}
+
+.search-box input{
+  width:100%;
+  padding:10px 15px;
+  border-radius:25px 0 0 25px;
+  border:none;
+  outline:none;
+  font-size:16px;
+}
+
+.search-box button{
+  padding:10px 20px;
+  border:none;
+  border-radius:0 25px 25px 0;
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.search-box button:hover{
+  transform:scale(1.05);
+}
+
+/* product container */
+.container{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:30px;
+  padding-bottom:80px;
+}
+
+/* classy product card */
+.product-card{
+  width:250px;
+  height:300px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:white;
+  transition:0.4s;
+}
+
+.product-card:hover{
+  transform:scale(1.05);
+}
+
+/* add button */
+.product-card button{
+  margin-top:15px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background:white;
+  color:black;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.product-card button:hover{
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  color:white;
+}
+
+/* bottom nav */
+.bottom-nav{
+  position:fixed;
+  bottom:0;
+  width:100%;
+  display:flex;
+  justify-content:space-around;
+  padding:15px 0;
+  backdrop-filter:blur(10px);
+  background:rgba(255,255,255,0.2);
+  color:white;
+  font-size:22px;
+  box-shadow:0 -3px 15px rgba(0,0,0,0.2);
+  transition:0.3s;
+}
+
+.bottom-nav div:hover{
+  transform:scale(1.2);
+  cursor:pointer;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+My Stylish Shop
+</div>
+
+<div class="search-box">
+  <input type="text" placeholder="Search Products...">
+  <button>🔍</button>
+</div>
+
+<div class="container">
+  <div class="product-card">
+    <h3>Product 1</h3>
+    <p>$25</p>
+    <button>Add Product</button>
+  </div>
+
+  <div class="product-card">
+    <h3>Product 2</h3>
+    <p>$40</p>
+    <button>Add Product</button>
+  </div>
+
+  <div class="product-card">
+    <h3>Product 3</h3>
+    <p>$15</p>
+    <button>Add Product</button>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <div>🏠</div>
+  <div>📦</div>
+  <div>❤️</div>
+  <div>👤</div>
+</div>
+
+</body>
+</html>
+
