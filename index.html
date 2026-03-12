@@ -1,72 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Login Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meesho Clone Stylish</title>
 <style>
-* { box-sizing: border-box; font-family: sans-serif; }
+    /* Reset & basic styles */
+    * { box-sizing: border-box; margin:0; padding:0; font-family: 'Arial', sans-serif; }
+    body { background: linear-gradient(120deg, #fef9f9, #e0f7fa); min-height:100vh; }
 
-body {
-  margin: 0;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(135deg,#667eea,#764ba2);
-}
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 25px 50px;
+        background: linear-gradient(135deg, violet, skyblue);
+        color: white;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+    header h1 { font-size: 2rem; letter-spacing: 2px; }
+    header a {
+        text-decoration: none;
+        padding: 10px 20px;
+        background: purple;
+        border-radius: 50px;
+        color: white;
+        font-weight: bold;
+        transition: all 0.3s ease;
+    }
+    header a:hover { background: #4b0082; transform: scale(1.05); }
 
-.login-box {
-  width: 350px;
-  padding: 40px;
-  border-radius: 15px;
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(8px);
-  text-align: center;
-}
+    main { padding: 40px 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 30px; }
 
-input {
-  width: 100%;
-  padding: 12px;
-  margin: 12px 0;
-  border-radius: 8px;
-  border: none;
-  outline: none;
-}
+    .product-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        width: 220px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .product-card:hover {
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    }
 
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(135deg,#f6d365,#fda085);
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+    .product-card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    .product-card img:hover { transform: scale(1.1); }
 
-button:active { transform: scale(0.95); }
+    .product-info { padding: 15px; text-align: center; }
+    .product-info h3 { font-size: 1.2rem; margin-bottom: 10px; color: #333; }
+    .product-info p { font-size: 0.95rem; color: #666; margin-bottom: 8px; }
 
-h2 { color: white; margin-bottom: 20px; }
+    .product-info .price { color: #ff4500; font-weight: bold; font-size: 1.1rem; }
+
+    @media(max-width:600px){
+        main { gap: 20px; }
+        .product-card { width: 100%; max-width: 300px; }
+        header { flex-direction: column; gap: 15px; text-align: center; }
+    }
 </style>
 </head>
 <body>
 
-<div class="login-box">
-<h2>Login</h2>
-<input type="text" placeholder="Name">
-<input type="email" placeholder="Email">
-<input type="password" placeholder="Password">
-<button onclick="login()">Login</button>
-</div>
+<header>
+    <h1>My Stylish Shop</h1>
+    <a href="admin.html">Admin</a>
+</header>
 
-<script>
-function login(){
-  alert("Login Success!");
-  window.location.href = "home.html"; // ✅ Login success-ஆனா home page-க்கு போகும்
-}
-</script>
+<main>
+    <div class="product-card">
+        <img src="images/product1.jpg" alt="Product 1">
+        <div class="product-info">
+            <h3>Product 1</h3>
+            <p class="price">₹500</p>
+            <p>Awesome product 1 details</p>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="images/product2.jpg" alt="Product 2">
+        <div class="product-info">
+            <h3>Product 2</h3>
+            <p class="price">₹800</p>
+            <p>Awesome product 2 details</p>
+        </div>
+    </div>
+
+    <div class="product-card">
+        <img src="images/product3.jpg" alt="Product 3">
+        <div class="product-info">
+            <h3>Product 3</h3>
+            <p class="price">₹1200</p>
+            <p>Awesome product 3 details</p>
+        </div>
+    </div>
+</main>
 
 </body>
-</html> 
-  
+</html>
+
