@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel</title>
+<style>
+body { font-family: Arial, sans-serif; background: #f5f5f5; margin:0; padding:0; }
+header { padding:20px; background: linear-gradient(135deg, violet, skyblue); color:white; text-align:center; }
+.admin-form { width: 300px; margin:50px auto; background:white; padding:20px; border-radius:15px; box-shadow:0 4px 15px rgba(0,0,0,0.2);}
+.admin-form input, .admin-form button { width:100%; padding:10px; margin:8px 0; border-radius:8px; border:none; }
+.admin-form button { background: linear-gradient(135deg, violet, skyblue); color:white; font-weight:bold; cursor:pointer; }
+.admin-form button:hover { opacity:0.9; }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>Admin Panel</h1>
+    <a href="index.html" style="color:white; text-decoration:none; font-weight:bold;">Home Page</a>
+</header>
+
+<div class="admin-form">
+    <h2>Add New Product</h2>
+    <form id="product-form">
+        <input type="text" id="name" placeholder="Product Name" required>
+        <input type="text" id="price" placeholder="Price" required>
+        <input type="text" id="details" placeholder="Details" required>
+        <input type="text" id="img" placeholder="Image URL" required>
+        <button type="submit">Add Product</button>
+    </form>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
+
