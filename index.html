@@ -156,7 +156,7 @@ toggleLink.addEventListener('click', ()=>{
     }
 });
 
-// Simple login/signup logic
+// Login / Signup logic with Home redirect
 document.getElementById('auth-form').addEventListener('submit',(e)=>{
     e.preventDefault();
     const username = document.getElementById('username').value;
@@ -176,7 +176,9 @@ document.getElementById('auth-form').addEventListener('submit',(e)=>{
             alert('Login Successful!');
             localStorage.setItem('loggedIn','true');
             localStorage.setItem('currentUser',JSON.stringify(user));
-            // Step 2: redirect to Home Page (will implement next)
+
+            // 🔥 Redirect to Home Page
+            window.location.href = "index.html";
         }else{
             alert('Invalid Credentials!');
         }
@@ -185,4 +187,5 @@ document.getElementById('auth-form').addEventListener('submit',(e)=>{
 </script>
 </body>
 </html>
+
 
