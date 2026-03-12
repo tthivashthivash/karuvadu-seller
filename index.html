@@ -3,19 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - Mini Meesho</title>
+<title>Login / Signup - Mini Meesho</title>
 <style>
-/* Page Reset */
-*{margin:0; padding:0; box-sizing:border-box; font-family:'Arial',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif;}
 body{
     height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-    background:linear-gradient(-45deg, #ff9a9e, #fad0c4, #a1c4fd, #c2e9fb);
-    background-size: 400% 400%;
+    background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#a1c4fd,#c2e9fb);
+    background-size:400% 400%;
     animation:gradientBG 15s ease infinite;
-    transition:0.5s;
 }
 
 /* Container */
@@ -24,7 +22,7 @@ body{
     padding:40px 30px;
     border-radius:20px;
     box-shadow:0 15px 40px rgba(0,0,0,0.3);
-    width:320px;
+    width:360px;
     max-width:90%;
     text-align:center;
     opacity:0;
@@ -33,15 +31,28 @@ body{
 
 /* Header */
 .login-container h2{
-    margin-bottom:30px;
+    margin-bottom:20px;
     color:#333;
     letter-spacing:1px;
+}
+
+/* Toggle links */
+.toggle-link{
+    font-size:14px;
+    color:violet;
+    cursor:pointer;
+    margin-bottom:20px;
+    display:inline-block;
+    transition:0.3s;
+}
+.toggle-link:hover{
+    text-decoration:underline;
 }
 
 /* Floating Labels */
 .input-group{
     position:relative;
-    margin-bottom:30px;
+    margin-bottom:20px;
 }
 .input-group input{
     width:100%;
@@ -102,35 +113,76 @@ button:hover{
 </head>
 <body>
 <div class="login-container">
-<h2>Login</h2>
-<form id="login-form">
+<h2 id="form-title">Login</h2>
+
+<!-- Toggle login/signup -->
+<span class="toggle-link" id="toggle-form">Don't have an account? Signup</span>
+
+<form id="auth-form">
 <div class="input-group">
 <input type="text" id="username" placeholder=" " required>
 <label for="username">Username</label>
+</div>
+<div class="input-group" id="email-group" style="display:none;">
+<input type="email" id="email" placeholder=" ">
+<label for="email">Email</label>
 </div>
 <div class="input-group">
 <input type="password" id="password" placeholder=" " required>
 <label for="password">Password</label>
 </div>
-<button type="submit">Login</button>
+<button type="submit" id="submit-btn">Login</button>
 </form>
 </div>
 
 <script>
-// Simple Login Logic
-document.getElementById('login-form').addEventListener('submit',(e)=>{
-    e.preventDefault();
-    const username=document.getElementById('username').value;
-    const password=document.getElementById('password').value;
-    // Temporary check
-    if(username==='admin' && password==='admin123'){
-        alert('Login Successful!');
-        localStorage.setItem('loggedIn','true');
-        // Redirect will happen in Step 2
+// Toggle between login and signup
+const toggleLink = document.getElementById('toggle-form');
+const formTitle = document.getElementById('form-title');
+const emailGroup = document.getElementById('email-group');
+const submitBtn = document.getElementById('submit-btn');
+
+toggleLink.addEventListener('click', ()=>{
+    if(emailGroup.style.display==='none'){
+        emailGroup.style.display='block';
+        formTitle.innerText='Signup';
+        submitBtn.innerText='Signup';
+        toggleLink.innerText='Already have an account? Login';
     }else{
-        alert('Invalid Credentials!');
+        emailGroup.style.display='none';
+        formTitle.innerText='Login';
+        submitBtn.innerText='Login';
+        toggleLink.innerText="Don't have an account? Signup";
+    }
+});
+
+// Simple login/signup logic
+document.getElementById('auth-form').addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+
+    if(emailGroup.style.display==='block'){ // Signup
+        const email = document.getElementById('email').value;
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        users.push({username,email,password});
+        localStorage.setItem('users',JSON.stringify(users));
+        alert('Signup Successful! You can now login.');
+        toggleLink.click(); // Switch to login
+    }else{ // Login
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(u=>u.username===username && u.password===password);
+        if(user){
+            alert('Login Successful!');
+            localStorage.setItem('loggedIn','true');
+            localStorage.setItem('currentUser',JSON.stringify(user));
+            // Step 2: redirect to Home Page (will implement next)
+        }else{
+            alert('Invalid Credentials!');
+        }
     }
 });
 </script>
 </body>
 </html>
+
