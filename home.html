@@ -1,121 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>My Online Shop</title>
-
+<title>Home Page</title>
 <style>
-body{
-  margin:0;
-  font-family:sans-serif;
-  background: linear-gradient(135deg,#1f1c2c,#928dab);
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: linear-gradient(135deg,#fbc2eb,#a6c1ee);
 }
 
 /* header */
-.header{
-  padding:20px;
-  color:white;
-  font-size:26px;
-  text-align:center;
-  letter-spacing:2px;
+.header {
+  padding: 20px;
+  text-align: center;
+  font-size: 24px;
+  color: white;
+  letter-spacing: 2px;
 }
 
-/* product area */
-.container{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:30px;
-  flex-wrap:wrap;
-  padding:40px;
+/* product section */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
 }
 
-/* classy product box */
-.product-box{
-  width:280px;
-  height:200px;
-  background:rgba(255,255,255,0.15);
-  border-radius:20px;
-  backdrop-filter:blur(10px);
-  box-shadow:0 8px 30px rgba(0,0,0,0.3);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction:column;
-  color:white;
-  transition:0.4s;
+.product-box {
+  width: 300px;
+  height: 200px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: white;
+  transition: 0.3s;
 }
 
-.product-box:hover{
-  transform:scale(1.05);
+.product-box:hover {
+  transform: scale(1.05);
 }
 
-/* bottom nav */
-.bottom-nav{
-  position:fixed;
-  bottom:0;
-  width:100%;
-  background:rgba(255,255,255,0.2);
-  backdrop-filter:blur(10px);
-  display:flex;
-  justify-content:space-around;
-  padding:14px;
-  color:white;
-  font-size:20px;
+/* button */
+button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: black;
+  cursor: pointer;
 }
 
-/* search box */
-.search-box{
-  width:100%;
-  max-width:400px;
-  margin:20px auto;
-  display:flex;
-}
-
-.search-box input{
-  width:100%;
-  padding:10px 15px;
-  border-radius:8px 0 0 8px;
-  border:none;
-  outline:none;
-}
-
-.search-box button{
-  padding:10px 15px;
-  border:none;
-  background:linear-gradient(135deg,#667eea,#764ba2);
-  color:white;
-  cursor:pointer;
-  border-radius:0 8px 8px 0;
+/* bottom icons */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 14px;
+  font-size: 22px;
+  color: white;
+  background: rgba(0,0,0,0.2);
+  backdrop-filter: blur(8px);
 }
 </style>
 </head>
-
 <body>
 
 <div class="header">My Online Shop</div>
 
-<div class="search-box">
-  <input type="text" placeholder="Search Products...">
-  <button>🔍</button>
-</div>
-
 <div class="container">
-
   <div class="product-box">
-    <h3>Stylish Shoes</h3>
-    <p>Red Running Shoes</p>
+    <h2>Welcome!</h2>
+    <p>Your Products Will Appear Here</p>
+    <button>Add Product</button>
   </div>
-
-  <div class="product-box">
-    <h3>Leather Watch</h3>
-    <p>Classic Brown Strap</p>
-  </div>
-
-  <div class="product-box">
-    <h3>Elegant Bag</h3>
-    <p>Black Backpack</p>
-  </div>
-
 </div>
 
 <div class="bottom-nav">
@@ -127,4 +92,3 @@ body{
 
 </body>
 </html>
-
