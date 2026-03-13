@@ -1,70 +1,99 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Product Details - Mini Meesho</title>
+<title>My Online Shop</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif;}
-body{background:linear-gradient(120deg,#fef9f9,#e0f7fa); animation:gradientBG 15s ease infinite; background-size:400% 400%; display:flex; justify-content:center; align-items:center; min-height:100vh;}
-.product-container{background:white;padding:30px 25px;border-radius:20px;box-shadow:0 15px 40px rgba(0,0,0,0.3);max-width:400px;width:90%;text-align:center;}
-.product-container img{width:100%;border-radius:15px;margin-bottom:15px;transition:0.3s;}
-.product-container img:hover{transform:scale(1.05);}
-.product-container h2{color:#333;margin-bottom:10px;}
-.product-container p{color:#666;margin-bottom:10px;}
-.product-container .price{color:#ff4500;font-weight:bold;font-size:1.2rem;margin-bottom:15px;}
-button{padding:12px 25px;border:none;border-radius:10px;margin:5px;cursor:pointer;font-weight:bold;font-size:16px;transition:0.3s;}
-#buy-btn{background:linear-gradient(135deg,violet,skyblue);color:white;}
-#buy-btn:hover{transform:scale(1.05);box-shadow:0 5px 15px rgba(0,0,0,0.2);}
-#back-btn{background:#ddd;color:#333;}
-#back-btn:hover{transform:scale(1.05);box-shadow:0 5px 15px rgba(0,0,0,0.2);}
-@keyframes gradientBG{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+*{box-sizing:border-box; font-family:sans-serif;}
+body{
+  margin:0; background: linear-gradient(135deg,#1f1c2c,#928dab); color:white;
+  display:flex; flex-direction:column; min-height:100vh;
+}
+/* Header */
+.header{
+  padding:20px; font-size:24px; text-align:center; letter-spacing:2px; font-weight:bold;
+}
+/* Search box */
+.search-box{
+  margin:10px auto; width:90%; max-width:400px; display:flex;
+}
+.search-box input{
+  flex:1; padding:10px 15px; border-radius:10px 0 0 10px; border:none; outline:none;
+}
+.search-box button{
+  padding:10px 15px; border:none; border-radius:0 10px 10px 0; background:#764ba2; color:white; cursor:pointer;
+  transition:0.3s;
+}
+.search-box button:active{transform:scale(0.95);}
+
+/* Products grid */
+.products{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:20px; padding:20px;
+  flex:1;
+}
+.product-card{
+  width:220px; height:280px; background:rgba(255,255,255,0.15); border-radius:20px;
+  backdrop-filter:blur(10px); box-shadow:0 8px 30px rgba(0,0,0,0.3);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  transition:0.4s; text-align:center;
+}
+.product-card:hover{transform:scale(1.05);}
+.product-card img{
+  width:120px; height:120px; border-radius:15px; object-fit:cover; margin-bottom:15px;
+}
+.product-card h3{margin:0 0 10px 0;}
+.product-card p{margin:0 0 15px 0;}
+.product-card button{
+  padding:8px 15px; border:none; border-radius:10px; background:white; color:black; cursor:pointer;
+}
+
+/* Bottom navigation */
+.bottom-nav{
+  position:fixed; bottom:0; width:100%; display:flex; justify-content:space-around;
+  background:rgba(255,255,255,0.2); backdrop-filter:blur(10px); padding:14px; font-size:20px;
+}
+.bottom-nav div{cursor:pointer; transition:0.3s;}
+.bottom-nav div:active{transform:scale(0.9);}
 </style>
 </head>
 <body>
 
-<div class="product-container">
-<img id="prod-img" src="" alt="Product">
-<h2 id="prod-name"></h2>
-<p class="price" id="prod-price"></p>
-<p id="prod-details"></p>
-<button id="buy-btn">Buy Now</button>
-<button id="back-btn">Back</button>
+<div class="header">My Online Shop</div>
+
+<div class="search-box">
+  <input type="text" placeholder="Search Products...">
+  <button>🔍</button>
 </div>
 
-<script>
-// Redirect if not logged in
-if(!localStorage.getItem('loggedIn')){
-    alert("Please login first!");
-    window.location.href="login.html";
-}
+<div class="products">
+  <div class="product-card">
+    <img src="https://via.placeholder.com/120" alt="Product 1">
+    <h3>Product 1</h3>
+    <p>$10</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/120" alt="Product 2">
+    <h3>Product 2</h3>
+    <p>$20</p>
+    <button>Add to Cart</button>
+  </div>
+  <div class="product-card">
+    <img src="https://via.placeholder.com/120" alt="Product 3">
+    <h3>Product 3</h3>
+    <p>$15</p>
+    <button>Add to Cart</button>
+  </div>
+</div>
 
-// Get selected product from localStorage
-const prod = JSON.parse(localStorage.getItem('selectedProduct'));
-if(!prod){
-    alert("No product selected!");
-    window.location.href="index.html";
-}
-
-// Display product details
-document.getElementById('prod-img').src = prod.img;
-document.getElementById('prod-name').innerText = prod.name;
-document.getElementById('prod-price').innerText = prod.price;
-document.getElementById('prod-details').innerText = prod.details;
-
-// Buy button click
-document.getElementById('buy-btn').addEventListener('click', ()=>{
-    alert(`You bought "${prod.name}" for ${prod.price}!`);
-    // Optional: Add to cart logic here
-});
-
-// Back button click
-document.getElementById('back-btn').addEventListener('click', ()=>{
-    window.location.href='index.html';
-});
-</script>
+<div class="bottom-nav">
+  <div>🏠</div>
+  <div>📦</div>
+  <div>❤️</div>
+  <div>👤</div>
+</div>
 
 </body>
 </html>
+
 
 
