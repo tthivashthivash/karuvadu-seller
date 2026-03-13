@@ -1,94 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Stylish Login & Signup</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login / Signup | Developer Mode</title>
 <style>
-*{box-sizing:border-box; font-family:sans-serif;}
-body{
-  margin:0; height:100vh; display:flex; justify-content:center; align-items:center;
-  background: linear-gradient(270deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);
-  background-size:600% 600%; animation:bgmove 8s infinite alternate;
-}
-@keyframes bgmove{0%{background-position:0% 50%;}100%{background-position:100% 50%;}}
+  /* Basic reset */
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0;
+    display:flex; justify-content:center; align-items:center;
+    min-height:100vh;
+    background: linear-gradient(135deg, #e0f7fa, #80deea);
+  }
 
-.container{
-  width:380px; padding:40px; border-radius:20px; background:rgba(255,255,255,0.2);
-  backdrop-filter:blur(10px); box-shadow:0 15px 40px rgba(0,0,0,0.3); text-align:center;
-  transform:scale(0.8); animation:popup 1s forwards;
-}
-@keyframes popup{to{transform:scale(1);}}
+  /* Container for forms */
+  .container {
+    background:white;
+    padding:30px 40px;
+    border-radius:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.15);
+    width:320px;
+  }
 
-h2{color:white; margin-bottom:20px;}
-input{
-  width:100%; padding:12px; margin-top:15px; border:none; border-radius:8px; outline:none;
-}
-button{
-  margin-top:20px; width:100%; padding:12px; border:none; border-radius:8px;
-  background:linear-gradient(135deg,#667eea,#764ba2); color:white; font-size:16px; cursor:pointer;
-  transition:0.3s;
-}
-button:active{transform:scale(0.9);}
-.switch-btn{
-  margin-top:15px; background:none; color:white; text-decoration:underline; cursor:pointer;
-}
+  h2 { text-align:center; margin-bottom:20px; color:#00796b; }
+
+  label {
+    display:block;
+    margin:10px 0 5px;
+    font-weight:bold;
+  }
+
+  input[type="email"], input[type="password"] {
+    width:100%;
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+  }
+
+  button {
+    width:100%;
+    padding:12px;
+    margin-top:20px;
+    border:none;
+    border-radius:8px;
+    background:#00796b;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    font-size:16px;
+  }
+
+  button:hover { background:#004d40; transition:0.3s; }
+
+  p.switch { text-align:center; margin-top:15px; font-size:14px; }
+  a { color:#00796b; text-decoration:none; cursor:pointer; }
 </style>
 </head>
 <body>
 
-<div class="container" id="loginBox">
+<!-- Login Form -->
+<div class="container" id="loginContainer">
   <h2>Login</h2>
-  <input type="text" id="loginName" placeholder="Name">
-  <input type="email" id="loginEmail" placeholder="Email">
-  <input type="password" id="loginPass" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <div><button class="switch-btn" onclick="showSignup()">Don't have an account? Sign Up</button></div>
+  <form id="loginForm" aria-label="Login Form">
+    <label for="loginEmail">Email</label>
+    <input type="email" id="loginEmail" required placeholder="Enter your email" aria-required="true">
+
+    <label for="loginPassword">Password</label>
+    <input type="password" id="loginPassword" required placeholder="Enter your password" aria-required="true">
+
+    <button type="submit">Login</button>
+
+    <p class="switch">Don't have an account? <a id="showSignup">Signup</a></p>
+  </form>
 </div>
 
-<div class="container" id="signupBox" style="display:none;">
-  <h2>Sign Up</h2>
-  <input type="text" id="signupName" placeholder="Name">
-  <input type="email" id="signupEmail" placeholder="Email">
-  <input type="password" id="signupPass" placeholder="Password">
-  <button onclick="signup()">Sign Up</button>
-  <div><button class="switch-btn" onclick="showLogin()">Already have an account? Login</button></div>
+<!-- Signup Form -->
+<div class="container" id="signupContainer" style="display:none;">
+  <h2>Signup</h2>
+  <form id="signupForm" aria-label="Signup Form">
+    <label for="signupEmail">Email</label>
+    <input type="email" id="signupEmail" required placeholder="Enter your email" aria-required="true">
+
+    <label for="signupPassword">Password</label>
+    <input type="password" id="signupPassword" required placeholder="Enter your password" aria-required="true">
+
+    <button type="submit">Signup</button>
+
+    <p class="switch">Already have an account? <a id="showLogin">Login</a></p>
+  </form>
 </div>
 
 <script>
-function showSignup(){
-  document.getElementById("loginBox").style.display="none";
-  document.getElementById("signupBox").style.display="block";
-}
-function showLogin(){
-  document.getElementById("signupBox").style.display="none";
-  document.getElementById("loginBox").style.display="block";
-}
+  // Toggle between Login and Signup
+  const loginContainer = document.getElementById('loginContainer');
+  const signupContainer = document.getElementById('signupContainer');
 
-function login(){
-  // Dummy login
-  const email = document.getElementById("loginEmail").value;
-  const pass = document.getElementById("loginPass").value;
-  if(email && pass){
-    alert("Login Success!");
-    window.location.href="home.html"; // Redirect to Home Page
-  }else{
-    alert("Please enter your credentials!");
-  }
-}
+  document.getElementById('showSignup').onclick = () => {
+    loginContainer.style.display = 'none';
+    signupContainer.style.display = 'block';
+    document.getElementById('signupEmail').focus();
+  };
 
-function signup(){
-  const email = document.getElementById("signupEmail").value;
-  const pass = document.getElementById("signupPass").value;
-  if(email && pass){
-    alert("Signup Success!");
-    window.location.href="home.html"; // Redirect to Home Page
-  }else{
-    alert("Please fill all fields!");
-  }
-}
+  document.getElementById('showLogin').onclick = () => {
+    signupContainer.style.display = 'none';
+    loginContainer.style.display = 'block';
+    document.getElementById('loginEmail').focus();
+  };
+
+  // Dummy storage for authentication
+  const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+  document.getElementById('signupForm').onsubmit = (e) => {
+    e.preventDefault();
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+
+    // Save user
+    users.push({email, password});
+    localStorage.setItem('users', JSON.stringify(users));
+
+    alert('Signup successful! Redirecting to Home page...');
+    window.location.href = 'home.html'; // Redirect to Home page
+  };
+
+  document.getElementById('loginForm').onsubmit = (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+
+    const user = users.find(u => u.email === email && u.password === password);
+
+    if(user){
+      alert('Login successful! Redirecting to Home page...');
+      window.location.href = 'home.html'; // Redirect to Home page
+    } else {
+      alert('Invalid email or password.');
+    }
+  };
 </script>
 
 </body>
 </html>
+
 
 
 
