@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wishlist / Profile / Checkout | Developer Mode</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0;
+    background:#f0f4f8;
+  }
+
+  header {
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#00796b;
+    color:white;
+  }
+
+  nav a {
+    color:white;
+    margin-left:15px;
+    text-decoration:none;
+    font-weight:bold;
+  }
+
+  main {
+    padding:20px;
+  }
+
+  h2 {
+    margin-top:0;
+    color:#00796b;
+  }
+
+  .item-card {
+    display:flex;
+    align-items:center;
+    background:white;
+    margin-bottom:15px;
+    padding:10px;
+    border-radius:10px;
+    box-shadow:0 3px 6px rgba(0,0,0,0.1);
+  }
+
+  .item-card img {
+    width:60px;
+    height:60px;
+    border-radius:8px;
+    object-fit:cover;
+    margin-right:15px;
+  }
+
+  .item-card button {
+    margin-left:auto;
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    background:#00796b;
+    color:white;
+    cursor:pointer;
+  }
+
+  .item-card button:hover { background:#004d40; transition:0.3s; }
+
+  .checkout-form {
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    box-shadow:0 3px 6px rgba(0,0,0,0.1);
+    max-width:400px;
+    margin:auto;
+  }
+
+  .checkout-form input, .checkout-form select {
+    width:100%;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:6px;
+    border:1px solid #ccc;
+  }
+
+  .checkout-form button {
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#00796b;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+  }
+
+  .checkout-form button:hover { background:#004d40; transition:0.3s; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Shop Developer Mode</h1>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="wishlist.html">Wishlist</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- Wishlist Section -->
+  <section id="wishlistSection" role="region" aria-label="Wishlist Items">
+    <h2>Wishlist</h2>
+    <div id="wishlistItems"></div>
+  </section>
+
+  <!-- Profile Section -->
+  <section id="profileSection" role="region" aria-label="User Profile" style="margin-top:30px;">
+    <h2>Profile</h2>
+    <p id="profileName">Name: Developer User</p>
+    <p id="profileEmail">Email: user@example.com</p>
+    <button id="logoutBtn">Logout</button>
+  </section>
+
+  <!-- Checkout Section -->
+  <section id="checkoutSection" role="region" aria-label="Checkout" style="margin-top:30px;">
+    <h2>Checkout</h2>
+    <form class="checkout-form" id="checkoutForm">
+      <input type="text" id="address" placeholder="Enter Address" required aria-label="Address">
+      <input type="tel" id="phone" placeholder="Phone Number" required aria-label="Phone Number">
+      <select id="paymentMethod" aria-label="Payment Method" required>
+        <option value="">Select Payment Method</option>
+        <option value="cod">Cash on Delivery</option>
+        <option value="card">Credit/Debit Card</option>
+      </select>
+      <button type="submit">Place Order</button>
+    </form>
+  </section>
+
+</main>
+
+<script>
+  // Load wishlist from localStorage
+  let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+  const wishlistDiv = document.getElementById('wishlistItems');
+
+  function renderWishlist() {
+    wishlistDiv.innerHTML = "";
+    if(wishlist.length === 0){
+      wishlistDiv.innerHTML = "<p>No items in wishlist.</p>";
+      return;
+    }
+    wishlist.forEach(p=>{
+      const item = document.createElement('div');
+      item.className = 'item-card';
+      item.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <span>${p.name} - ${p.price}</span>
+        <button onclick="removeWishlist(${p.id})">Remove</button>
+      `;
+      wishlistDiv.appendChild(item);
+    });
+  }
+
+  function removeWishlist(id){
+    wishlist = wishlist.filter(p=>p.id !== id);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    renderWishlist();
+  }
+
+  renderWishlist();
+
+  // Profile Logout
+  document.getElementById('logoutBtn').onclick = () => {
+    alert('Logged out! Redirecting to login...');
+    window.location.href = 'login.html';
+  };
+
+  // Checkout Form
+  document.getElementById('checkoutForm').onsubmit = (e)=>{
+    e.preventDefault();
+    const address = document.getElementById('address').value;
+    const phone = document.getElementById('phone').value;
+    const payment = document.getElementById('paymentMethod').value;
+
+    if(!address || !phone || !payment) {
+      alert("Please fill all details.");
+      return;
+    }
+
+    // Developer-style: display order details
+    alert(Order Placed!\nAddress: ${address}\nPhone: ${phone}\nPayment: ${payment});
+    // Clear cart & wishlist
+    localStorage.removeItem('cart');
+    localStorage.removeItem('wishlist');
+    window.location.href = 'home.html';
+  };
+</script>
+
+</body>
+</html>
+
