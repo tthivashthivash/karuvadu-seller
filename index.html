@@ -1,191 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login / Signup - Mini Meesho</title>
+<title>Stylish Login & Signup</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif;}
+*{box-sizing:border-box; font-family:sans-serif;}
 body{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:linear-gradient(-45deg,#ff9a9e,#fad0c4,#a1c4fd,#c2e9fb);
-    background-size:400% 400%;
-    animation:gradientBG 15s ease infinite;
+  margin:0; height:100vh; display:flex; justify-content:center; align-items:center;
+  background: linear-gradient(270deg,#ff9a9e,#fad0c4,#a18cd1,#fbc2eb);
+  background-size:600% 600%; animation:bgmove 8s infinite alternate;
 }
+@keyframes bgmove{0%{background-position:0% 50%;}100%{background-position:100% 50%;}}
 
-/* Container */
-.login-container{
-    background:white;
-    padding:40px 30px;
-    border-radius:20px;
-    box-shadow:0 15px 40px rgba(0,0,0,0.3);
-    width:360px;
-    max-width:90%;
-    text-align:center;
-    opacity:0;
-    animation:fadeIn 1s forwards;
+.container{
+  width:380px; padding:40px; border-radius:20px; background:rgba(255,255,255,0.2);
+  backdrop-filter:blur(10px); box-shadow:0 15px 40px rgba(0,0,0,0.3); text-align:center;
+  transform:scale(0.8); animation:popup 1s forwards;
 }
+@keyframes popup{to{transform:scale(1);}}
 
-/* Header */
-.login-container h2{
-    margin-bottom:20px;
-    color:#333;
-    letter-spacing:1px;
+h2{color:white; margin-bottom:20px;}
+input{
+  width:100%; padding:12px; margin-top:15px; border:none; border-radius:8px; outline:none;
 }
-
-/* Toggle links */
-.toggle-link{
-    font-size:14px;
-    color:violet;
-    cursor:pointer;
-    margin-bottom:20px;
-    display:inline-block;
-    transition:0.3s;
-}
-.toggle-link:hover{
-    text-decoration:underline;
-}
-
-/* Floating Labels */
-.input-group{
-    position:relative;
-    margin-bottom:20px;
-}
-.input-group input{
-    width:100%;
-    padding:12px 12px;
-    border:2px solid #ddd;
-    border-radius:10px;
-    outline:none;
-    font-size:16px;
-    transition:0.3s;
-}
-.input-group label{
-    position:absolute;
-    top:12px;
-    left:12px;
-    color:#aaa;
-    pointer-events:none;
-    transition:0.3s;
-    background:white;
-    padding:0 4px;
-}
-.input-group input:focus{
-    border-color:violet;
-}
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label{
-    top:-10px;
-    left:10px;
-    font-size:12px;
-    color:violet;
-}
-
-/* Button */
 button{
-    width:100%;
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:linear-gradient(135deg,violet,skyblue);
-    color:white;
-    font-size:16px;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
+  margin-top:20px; width:100%; padding:12px; border:none; border-radius:8px;
+  background:linear-gradient(135deg,#667eea,#764ba2); color:white; font-size:16px; cursor:pointer;
+  transition:0.3s;
 }
-button:hover{
-    transform:scale(1.05);
-    box-shadow:0 5px 15px rgba(0,0,0,0.2);
-}
-
-/* Animations */
-@keyframes fadeIn{from{opacity:0; transform:translateY(-20px);} to{opacity:1; transform:translateY(0);}}
-@keyframes gradientBG{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+button:active{transform:scale(0.9);}
+.switch-btn{
+  margin-top:15px; background:none; color:white; text-decoration:underline; cursor:pointer;
 }
 </style>
 </head>
 <body>
-<div class="login-container">
-<h2 id="form-title">Login</h2>
 
-<!-- Toggle login/signup -->
-<span class="toggle-link" id="toggle-form">Don't have an account? Signup</span>
+<div class="container" id="loginBox">
+  <h2>Login</h2>
+  <input type="text" id="loginName" placeholder="Name">
+  <input type="email" id="loginEmail" placeholder="Email">
+  <input type="password" id="loginPass" placeholder="Password">
+  <button onclick="login()">Login</button>
+  <div><button class="switch-btn" onclick="showSignup()">Don't have an account? Sign Up</button></div>
+</div>
 
-<form id="auth-form">
-<div class="input-group">
-<input type="text" id="username" placeholder=" " required>
-<label for="username">Username</label>
-</div>
-<div class="input-group" id="email-group" style="display:none;">
-<input type="email" id="email" placeholder=" ">
-<label for="email">Email</label>
-</div>
-<div class="input-group">
-<input type="password" id="password" placeholder=" " required>
-<label for="password">Password</label>
-</div>
-<button type="submit" id="submit-btn">Login</button>
-</form>
+<div class="container" id="signupBox" style="display:none;">
+  <h2>Sign Up</h2>
+  <input type="text" id="signupName" placeholder="Name">
+  <input type="email" id="signupEmail" placeholder="Email">
+  <input type="password" id="signupPass" placeholder="Password">
+  <button onclick="signup()">Sign Up</button>
+  <div><button class="switch-btn" onclick="showLogin()">Already have an account? Login</button></div>
 </div>
 
 <script>
-// Toggle between login and signup
-const toggleLink = document.getElementById('toggle-form');
-const formTitle = document.getElementById('form-title');
-const emailGroup = document.getElementById('email-group');
-const submitBtn = document.getElementById('submit-btn');
+function showSignup(){
+  document.getElementById("loginBox").style.display="none";
+  document.getElementById("signupBox").style.display="block";
+}
+function showLogin(){
+  document.getElementById("signupBox").style.display="none";
+  document.getElementById("loginBox").style.display="block";
+}
 
-toggleLink.addEventListener('click', ()=>{
-    if(emailGroup.style.display==='none'){
-        emailGroup.style.display='block';
-        formTitle.innerText='Signup';
-        submitBtn.innerText='Signup';
-        toggleLink.innerText='Already have an account? Login';
-    }else{
-        emailGroup.style.display='none';
-        formTitle.innerText='Login';
-        submitBtn.innerText='Login';
-        toggleLink.innerText="Don't have an account? Signup";
-    }
-});
+function login(){
+  // Dummy login
+  const email = document.getElementById("loginEmail").value;
+  const pass = document.getElementById("loginPass").value;
+  if(email && pass){
+    alert("Login Success!");
+    window.location.href="home.html"; // Redirect to Home Page
+  }else{
+    alert("Please enter your credentials!");
+  }
+}
 
-// Login / Signup logic with Home redirect
-document.getElementById('auth-form').addEventListener('submit',(e)=>{
-    e.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    if(emailGroup.style.display==='block'){ // Signup
-        const email = document.getElementById('email').value;
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        users.push({username,email,password});
-        localStorage.setItem('users',JSON.stringify(users));
-        alert('Signup Successful! You can now login.');
-        toggleLink.click(); // Switch to login
-    }else{ // Login
-        let users = JSON.parse(localStorage.getItem('users')) || [];
-        const user = users.find(u=>u.username===username && u.password===password);
-        if(user){
-            alert('Login Successful!');
-            localStorage.setItem('loggedIn','true');
-            localStorage.setItem('currentUser',JSON.stringify(user));
-
-            // 🔥 Redirect to Home Page
-            window.location.href = "index.html";
-        }else{
-            alert('Invalid Credentials!');
-        }
-    }
-});
+function signup(){
+  const email = document.getElementById("signupEmail").value;
+  const pass = document.getElementById("signupPass").value;
+  if(email && pass){
+    alert("Signup Success!");
+    window.location.href="home.html"; // Redirect to Home Page
+  }else{
+    alert("Please fill all fields!");
+  }
+}
 </script>
+
 </body>
 </html>
+
 
 
