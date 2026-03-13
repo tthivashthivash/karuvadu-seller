@@ -3,146 +3,76 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login / Signup | Developer Mode</title>
+<title>Part 1 - Login</title>
 <style>
-  /* Basic reset */
-  *, *::before, *::after { box-sizing: border-box; }
   body {
-    font-family: Arial, sans-serif;
-    margin:0; padding:0;
-    display:flex; justify-content:center; align-items:center;
-    min-height:100vh;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
     background: linear-gradient(135deg, #e0f7fa, #80deea);
   }
-
-  /* Container for forms */
-  .container {
-    background:white;
-    padding:30px 40px;
-    border-radius:15px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.15);
-    width:320px;
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 300px;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
   }
-
-  h2 { text-align:center; margin-bottom:20px; color:#00796b; }
-
-  label {
-    display:block;
-    margin:10px 0 5px;
-    font-weight:bold;
+  input, button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
   }
-
-  input[type="email"], input[type="password"] {
-    width:100%;
-    padding:10px;
-    border-radius:8px;
-    border:1px solid #ccc;
+  input:focus {
+    outline: 3px solid #0288d1;
   }
-
   button {
-    width:100%;
-    padding:12px;
-    margin-top:20px;
-    border:none;
-    border-radius:8px;
-    background:#00796b;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
-    font-size:16px;
+    background: linear-gradient(135deg, #0288d1, #26c6da);
+    color: white;
+    border: none;
+    cursor: pointer;
   }
-
-  button:hover { background:#004d40; transition:0.3s; }
-
-  p.switch { text-align:center; margin-top:15px; font-size:14px; }
-  a { color:#00796b; text-decoration:none; cursor:pointer; }
+  button:focus {
+    outline: 3px solid #01579b;
+  }
 </style>
 </head>
 <body>
 
-<!-- Login Form -->
-<div class="container" id="loginContainer">
-  <h2>Login</h2>
-  <form id="loginForm" aria-label="Login Form">
-    <label for="loginEmail">Email</label>
-    <input type="email" id="loginEmail" required placeholder="Enter your email" aria-required="true">
+<main>
+  <h1 id="login-title">Login</h1>
+  <form id="login-form" aria-labelledby="login-title">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" aria-required="true" required>
 
-    <label for="loginPassword">Password</label>
-    <input type="password" id="loginPassword" required placeholder="Enter your password" aria-required="true">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" aria-required="true" required>
 
-    <button type="submit">Login</button>
-
-    <p class="switch">Don't have an account? <a id="showSignup">Signup</a></p>
+    <button type="submit" aria-label="Login and go to Part 2">Login</button>
   </form>
-</div>
-
-<!-- Signup Form -->
-<div class="container" id="signupContainer" style="display:none;">
-  <h2>Signup</h2>
-  <form id="signupForm" aria-label="Signup Form">
-    <label for="signupEmail">Email</label>
-    <input type="email" id="signupEmail" required placeholder="Enter your email" aria-required="true">
-
-    <label for="signupPassword">Password</label>
-    <input type="password" id="signupPassword" required placeholder="Enter your password" aria-required="true">
-
-    <button type="submit">Signup</button>
-
-    <p class="switch">Already have an account? <a id="showLogin">Login</a></p>
-  </form>
-</div>
+</main>
 
 <script>
-  // Toggle between Login and Signup
-  const loginContainer = document.getElementById('loginContainer');
-  const signupContainer = document.getElementById('signupContainer');
-
-  document.getElementById('showSignup').onclick = () => {
-    loginContainer.style.display = 'none';
-    signupContainer.style.display = 'block';
-    document.getElementById('signupEmail').focus();
-  };
-
-  document.getElementById('showLogin').onclick = () => {
-    signupContainer.style.display = 'none';
-    loginContainer.style.display = 'block';
-    document.getElementById('loginEmail').focus();
-  };
-
-  // Dummy storage for authentication
-  const users = JSON.parse(localStorage.getItem('users') || '[]');
-
-  document.getElementById('signupForm').onsubmit = (e) => {
+  const form = document.getElementById('login-form');
+  form.addEventListener('submit', function(e) {
     e.preventDefault();
-    const email = document.getElementById('signupEmail').value;
-    const password = document.getElementById('signupPassword').value;
-
-    // Save user
-    users.push({email, password});
-    localStorage.setItem('users', JSON.stringify(users));
-
-    alert('Signup successful! Redirecting to Home page...');
-    window.location.href = 'home.html'; // Redirect to Home page
-  };
-
-  document.getElementById('loginForm').onsubmit = (e) => {
-    e.preventDefault();
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-
-    const user = users.find(u => u.email === email && u.password === password);
-
-    if(user){
-      alert('Login successful! Redirecting to Home page...');
-      window.location.href = 'home.html'; // Redirect to Home page
-    } else {
-      alert('Invalid email or password.');
-    }
-  };
+    // Redirect to Part 2
+    window.location.href = 'part2.html';
+  });
 </script>
 
 </body>
 </html>
+
 
 
 
