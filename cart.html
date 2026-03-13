@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart & Order | Developer Mode</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0;
+    background:#f0f4f8;
+  }
+
+  header {
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#00796b;
+    color:white;
+  }
+
+  nav a {
+    color:white;
+    margin-left:15px;
+    text-decoration:none;
+    font-weight:bold;
+  }
+
+  main {
+    padding:20px;
+  }
+
+  h2 { color:#00796b; }
+
+  .cart-item {
+    display:flex;
+    align-items:center;
+    background:white;
+    margin-bottom:15px;
+    padding:10px;
+    border-radius:10px;
+    box-shadow:0 3px 6px rgba(0,0,0,0.1);
+  }
+
+  .cart-item img {
+    width:60px; height:60px;
+    border-radius:8px;
+    margin-right:15px;
+    object-fit:cover;
+  }
+
+  .cart-item button {
+    margin-left:auto;
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    background:#00796b;
+    color:white;
+    cursor:pointer;
+  }
+
+  .cart-item button:hover { background:#004d40; transition:0.3s; }
+
+  #orderConfirmation {
+    margin-top:20px;
+    text-align:center;
+    font-weight:bold;
+    color:#004d40;
+    display:none;
+    animation: slideUp 1s ease-in-out;
+  }
+
+  @keyframes slideUp {
+    0% { opacity:0; transform: translateY(30px);}
+    100% { opacity:1; transform: translateY(0);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Shop Developer Mode</h1>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="wishlist.html">Wishlist</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Cart</h2>
+  <div id="cartItems"></div>
+  <button id="placeOrderBtn" style="margin-top:10px; padding:10px 20px; border:none; border-radius:8px; background:#00796b; color:white; font-weight:bold; cursor:pointer;">Place Order</button>
+  <div id="orderConfirmation">🎉 Order Placed Successfully! 🎉</div>
+</main>
+
+<script>
+  // Load cart from localStorage
+  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  const cartDiv = document.getElementById('cartItems');
+  const orderConfirmation = document.getElementById('orderConfirmation');
+
+  function renderCart(){
+    cartDiv.innerHTML = "";
+    if(cart.length === 0){
+      cartDiv.innerHTML = "<p>No items in cart.</p>";
+      return;
+    }
+    cart.forEach(p=>{
+      const item = document.createElement('div');
+      item.className = 'cart-item';
+      item.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <span>${p.name} - ${p.price}</span>
+        <button onclick="removeCart(${p.id})">Remove</button>
+      `;
+      cartDiv.appendChild(item);
+    });
+  }
+
+  function removeCart(id){
+    cart = cart.filter(p=>p.id !== id);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+  }
+
+  renderCart();
+
+  // Place order with simple animation
+  document.getElementById('placeOrderBtn').onclick = () => {
+    if(cart.length === 0){
+      alert("Cart is empty!");
+      return;
+    }
+    // Show confirmation animation
+    orderConfirmation.style.display = "block";
+    // Clear cart after a short delay
+    setTimeout(()=>{
+      localStorage.removeItem('cart');
+      cart = [];
+      renderCart();
+    }, 2000);
+  };
+</script>
+
+</body>
+</html>
