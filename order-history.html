@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmation & History | Developer Mode</title>
+<style>
+  body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f0f4f8; }
+  header {
+    display:flex; justify-content: space-between; align-items:center;
+    padding:15px 20px; background:#00796b; color:white;
+  }
+  nav a { color:white; margin-left:15px; text-decoration:none; font-weight:bold; }
+  main { padding:20px; }
+  h2 { margin-bottom:20px; }
+  .order-card {
+    background:white; padding:15px; margin-bottom:15px; border-radius:10px;
+    box-shadow:0 3px 6px rgba(0,0,0,0.1);
+  }
+  .order-card h3 { margin-top:0; }
+  .order-items {
+    margin-left:15px; list-style:disc;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Shop Developer Mode</h1>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="wishlist.html">Wishlist</a>
+    <a href="cart.html">Cart</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Order History</h2>
+  <div id="orderContainer" role="region" aria-label="Order History"></div>
+</main>
+
+<script>
+  const orderContainer = document.getElementById('orderContainer');
+
+  function renderOrders(){
+    orderContainer.innerHTML = "";
+    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    if(orders.length===0){
+      orderContainer.innerHTML = "<p>No orders placed yet.</p>";
+      return;
+    }
+
+    orders.forEach((order, index)=>{
+      const card = document.createElement('div');
+      card.className = "order-card";
+      card.innerHTML = `
+        <h3>Order #${index+1}</h3>
+        <p><strong>Name:</strong> ${order.name}</p>
+        <p><strong>Address:</strong> ${order.address}</p>
+        <p><strong>Phone:</strong> ${order.phone}</p>
+        <p><strong>Payment Method:</strong> ${order.paymentMethod}</p>
+        <p><strong>Items:</strong></p>
+        <ul class="order-items">
+          ${order.items.map(item=><li>${item.name} - ${item.price}</li>).join('')}
+        </ul>
+      `;
+      orderContainer.appendChild(card);
+    });
+  }
+
+  renderOrders();
+</script>
+
+</body>
+</html>
