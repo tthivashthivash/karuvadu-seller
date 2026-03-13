@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search & Filter | Developer Mode</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0;
+    background:#f0f4f8;
+  }
+
+  header {
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#00796b;
+    color:white;
+  }
+
+  nav a {
+    color:white;
+    margin-left:15px;
+    text-decoration:none;
+    font-weight:bold;
+  }
+
+  main {
+    padding:20px;
+  }
+
+  input[type="text"] {
+    width:100%;
+    padding:10px;
+    margin-bottom:20px;
+    border-radius:6px;
+    border:1px solid #ccc;
+  }
+
+  .product-card {
+    display:flex;
+    align-items:center;
+    background:white;
+    margin-bottom:15px;
+    padding:10px;
+    border-radius:10px;
+    box-shadow:0 3px 6px rgba(0,0,0,0.1);
+  }
+
+  .product-card img {
+    width:60px; height:60px;
+    border-radius:8px;
+    margin-right:15px;
+    object-fit:cover;
+  }
+
+  .product-card button {
+    margin-left:auto;
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    background:#00796b;
+    color:white;
+    cursor:pointer;
+  }
+
+  .product-card button:hover { background:#004d40; transition:0.3s; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Shop Developer Mode</h1>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="wishlist.html">Wishlist</a>
+    <a href="profile.html">Profile</a>
+    <a href="cart.html">Cart</a>
+  </nav>
+</header>
+
+<main>
+  <h2>Search Products</h2>
+  <input type="text" id="searchInput" placeholder="Search products..." aria-label="Search Products">
+
+  <div id="productList" role="region" aria-label="Product List"></div>
+</main>
+
+<script>
+  // Sample product data
+  const products = [
+    {id:1, name:"Red Shirt", price:"₹499", img:"https://via.placeholder.com/60/ff0000"},
+    {id:2, name:"Blue Jeans", price:"₹999", img:"https://via.placeholder.com/60/0000ff"},
+    {id:3, name:"Green Hat", price:"₹299", img:"https://via.placeholder.com/60/00ff00"},
+    {id:4, name:"Yellow Shoes", price:"₹799", img:"https://via.placeholder.com/60/ffff00"},
+    {id:5, name:"Black Jacket", price:"₹1299", img:"https://via.placeholder.com/60/000000"}
+  ];
+
+  const productListDiv = document.getElementById('productList');
+  const searchInput = document.getElementById('searchInput');
+
+  function renderProducts(list){
+    productListDiv.innerHTML = "";
+    if(list.length === 0){
+      productListDiv.innerHTML = "<p>No products found.</p>";
+      return;
+    }
+    list.forEach(p=>{
+      const card = document.createElement('div');
+      card.className = "product-card";
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <span>${p.name} - ${p.price}</span>
+        <button onclick="addToCart(${p.id})">Add to Cart</button>
+      `;
+      productListDiv.appendChild(card);
+    });
+  }
+
+  function addToCart(id){
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const product = products.find(p=>p.id===id);
+    if(!cart.some(p=>p.id===id)){
+      cart.push(product);
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(${product.name} added to cart!);
+  }
+
+  // Initial render
+  renderProducts(products);
+
+  // Filter products dynamically
+  searchInput.addEventListener('input', e => {
+    const keyword = e.target.value.toLowerCase();
+    const filtered = products.filter(p=>p.name.toLowerCase().includes(keyword));
+    renderProducts(filtered);
+  });
+</script>
+
+</body>
+</html>
