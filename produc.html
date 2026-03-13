@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Details | Developer Mode</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin:0; padding:0;
+    background:#f0f4f8;
+  }
+  header {
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    padding:15px 20px;
+    background:#00796b;
+    color:white;
+  }
+  nav a {
+    color:white;
+    margin-left:15px;
+    text-decoration:none;
+    font-weight:bold;
+  }
+  main {
+    padding:20px;
+  }
+  .product-detail {
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 4px 8px rgba(0,0,0,0.1);
+    max-width:500px;
+    margin:auto;
+  }
+  .product-detail img {
+    width:100%;
+    border-radius:8px;
+  }
+  .product-detail h2 {
+    margin:15px 0 5px;
+  }
+  .product-detail p {
+    margin:5px 0;
+  }
+  .product-detail button {
+    padding:10px 15px;
+    margin-top:15px;
+    border:none;
+    border-radius:8px;
+    background:#00796b;
+    color:white;
+    cursor:pointer;
+    font-weight:bold;
+  }
+  .product-detail button:hover { background:#004d40; transition:0.3s; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Shop Developer Mode</h1>
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="wishlist.html">Wishlist</a>
+    <a href="profile.html">Profile</a>
+  </nav>
+</header>
+
+<main>
+  <div class="product-detail" id="productDetail" role="region" aria-label="Product Details">
+    <!-- Product info populated by JS -->
+  </div>
+</main>
+
+<script>
+  // Sample products (could be from previous part)
+  const products = [
+    {id:1,name:"Product 1",price:"$10",img:"https://via.placeholder.com/300",desc:"Description for Product 1"},
+    {id:2,name:"Product 2",price:"$20",img:"https://via.placeholder.com/300",desc:"Description for Product 2"},
+    {id:3,name:"Product 3",price:"$15",img:"https://via.placeholder.com/300",desc:"Description for Product 3"},
+    {id:4,name:"Product 4",price:"$25",img:"https://via.placeholder.com/300",desc:"Description for Product 4"},
+    {id:5,name:"Product 5",price:"$30",img:"https://via.placeholder.com/300",desc:"Description for Product 5"}
+  ];
+
+  // Parse product id from URL
+  const params = new URLSearchParams(window.location.search);
+  const productId = parseInt(params.get('id')) || 1;
+  const product = products.find(p=>p.id === productId);
+
+  const detailContainer = document.getElementById('productDetail');
+  detailContainer.innerHTML = `
+    <img src="${product.img}" alt="${product.name}">
+    <h2>${product.name}</h2>
+    <p>${product.desc}</p>
+    <p>Price: ${product.price}</p>
+    <button id="addToCart">Add to Cart</button>
+    <button id="addToWishlist">❤️ Wishlist</button>
+  `;
+
+  // Accessibility focus
+  document.getElementById('addToCart').focus();
+
+  // Dummy cart & wishlist storage
+  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+
+  document.getElementById('addToCart').onclick = () => {
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Added to Cart! Redirecting to Checkout...');
+    window.location.href = 'checkout.html';
+  };
+
+  document.getElementById('addToWishlist').onclick = () => {
+    if(!wishlist.find(p=>p.id === product.id)) wishlist.push(product);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    alert('Added to Wishlist!');
+  };
+</script>
+
+</body>
+</html>
